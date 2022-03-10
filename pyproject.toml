@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "SpotiFetch"
-version = "0.0.1"
+version = "0.1.0"
 description = "A fetch tool for Spotify"
 authors = ["ZenithDS"]
 license = "MIT"
@@ -11,6 +11,9 @@ python = "^3.9"
 spotipy = "^2.19.0"
 rich = "^11.2.0"
 typer = "^0.4.0"
+
+[tool.poetry.scripts]
+spotifetch = "SpotiFetch.cli:main"
 
 [tool.poetry.dev-dependencies]
 

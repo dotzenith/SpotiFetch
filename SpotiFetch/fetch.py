@@ -13,7 +13,7 @@ def fetch_profile(colors, spotify_obj, term='short_term'):
     '''
     current = get_currently_playing_stats(spotify_obj)
     if current is None:
-        current = "No currently playing track"
+        current = "NO CURRENTLY PLAYING TRACK"
     else:
         current = f"{current['track_name']} - {current['artist_name']}"
 
@@ -31,25 +31,33 @@ def fetch_top_tracks(colors, spotify_obj, term='short_term'):
 
     top_tracks = get_user_top_tracks(spotify_obj, term)
 
-    return f"[{colors['colorOne']}]{top_tracks[0]['track_name'].upper()} - {top_tracks[0]['artist_name'].upper()}[/{colors['colorOne']}]", \
-           f"[{colors['colorTwo']}]{top_tracks[1]['track_name'].upper()} - {top_tracks[1]['artist_name'].upper()}[/{colors['colorTwo']}]", \
-           f"[{colors['colorThree']}]{top_tracks[2]['track_name'].upper()} - {top_tracks[2]['artist_name'].upper()}[/{colors['colorThree']}]", \
-           f"[{colors['colorFour']}]{top_tracks[3]['track_name'].upper()} - {top_tracks[3]['artist_name'].upper()}[/{colors['colorFour']}]", \
-           f"[{colors['colorFive']}]{top_tracks[4]['track_name'].upper()} - {top_tracks[4]['artist_name'].upper()}[/{colors['colorFive']}]" 
+    return f"[{colors['colorOne']}]{top_tracks[0]['track_name']} - {top_tracks[0]['artist_name']}[/{colors['colorOne']}]", \
+           f"[{colors['colorTwo']}]{top_tracks[1]['track_name']} - {top_tracks[1]['artist_name']}[/{colors['colorTwo']}]", \
+           f"[{colors['colorThree']}]{top_tracks[2]['track_name']} - {top_tracks[2]['artist_name']}[/{colors['colorThree']}]", \
+           f"[{colors['colorFour']}]{top_tracks[3]['track_name']} - {top_tracks[3]['artist_name']}[/{colors['colorFour']}]", \
+           f"[{colors['colorFive']}]{top_tracks[4]['track_name']} - {top_tracks[4]['artist_name']}[/{colors['colorFive']}]" 
 
 def fetch_top_artists(colors, spotify_obj, term='short_term'):
 
     top_artists = get_user_top_artists(spotify_obj, term)
 
-    return f"[{colors['colorOne']}]{top_artists[0].upper()}[/{colors['colorOne']}]", \
-           f"[{colors['colorTwo']}]{top_artists[1].upper()}[/{colors['colorTwo']}]", \
-           f"[{colors['colorThree']}]{top_artists[2].upper()}[/{colors['colorThree']}]", \
-           f"[{colors['colorFour']}]{top_artists[3].upper()}[/{colors['colorFour']}]", \
-           f"[{colors['colorFive']}]{top_artists[4].upper()}[/{colors['colorFive']}]" 
+    return f"[{colors['colorOne']}]{top_artists[0]}[/{colors['colorOne']}]", \
+           f"[{colors['colorTwo']}]{top_artists[1]}[/{colors['colorTwo']}]", \
+           f"[{colors['colorThree']}]{top_artists[2]}[/{colors['colorThree']}]", \
+           f"[{colors['colorFour']}]{top_artists[3]}[/{colors['colorFour']}]", \
+           f"[{colors['colorFive']}]{top_artists[4]}[/{colors['colorFive']}]" 
 
-def main(colorscheme="catppuccin", random_color=True, category='profile'):
+def main(colorscheme="catppuccin", random_color=True, category='profile', term='short_term'):
     Spotipy = create_spotify("user-read-currently-playing user-top-read user-read-recently-played user-read-private")
-    
+
+
+    # Setting up the colors
+    colorscheme = colorscheme.lower()
+    if colorscheme in colors.keys():
+        theme = colors[colorscheme]
+    else:
+        theme = colors['catppuccin']
+
     theme = colors[colorscheme]
     if not random_color:
         logo_color = theme['colorFour']
@@ -59,11 +67,11 @@ def main(colorscheme="catppuccin", random_color=True, category='profile'):
         logo_color = random.choice(val_list)
 
     if category == 'top_tracks':
-        field_one, field_two, field_three, field_four, field_five = fetch_top_tracks(theme, Spotipy)
+        field_one, field_two, field_three, field_four, field_five = fetch_top_tracks(theme, Spotipy, term)
     elif category == 'top_artists':
-        field_one, field_two, field_three, field_four, field_five = fetch_top_artists(theme, Spotipy)
+        field_one, field_two, field_three, field_four, field_five = fetch_top_artists(theme, Spotipy, term)
     else : 
-        field_one, field_two, field_three, field_four, field_five = fetch_profile(theme, Spotipy)
+        field_one, field_two, field_three, field_four, field_five = fetch_profile(theme, Spotipy, term)
 
     
     new_art = f"      [{logo_color}]______[/{logo_color}]" \
