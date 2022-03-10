@@ -35,13 +35,13 @@ def get_user_recently_played(spotify_obj):
 
 def get_user_top_artist(spotify_obj, term = 'short_term'):
 
-    top_artists = spotify_obj.current_user_top_artists(limit=1, time_range=term)
+    top_artists = spotify_obj.current_user_top_artists(limit=5, time_range=term)
 
-    return top_artists['items'][0]['name']
+    return [artist['name'] for artist in top_artists['items']]
 
 def get_user_top_track(spotify_obj, term = 'short_term'):
 
-    top_tracks = spotify_obj.current_user_top_tracks(limit=1, time_range=term)
-    return {'artist_name' : top_tracks['items'][0]['artists'][0]['name'],
-            'track_name' : top_tracks['items'][0]['name']
-    }
+    top_tracks = spotify_obj.current_user_top_tracks(limit=5, time_range=term)
+
+    return [{'artist_name' : track['artists'][0]['name'],
+             'track_name' : track['name']} for track in top_tracks['items']]

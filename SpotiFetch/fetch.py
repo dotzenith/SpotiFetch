@@ -11,7 +11,7 @@ def format_info(colors, user, now, recent, track, artist):
            f"[{colors['colorFour']}]TOP TRACK[/{colors['colorFour']}]       [{colors['fg']}]{track['track_name']} - {track['artist_name']}[/{colors['fg']}]", \
            f"[{colors['colorFive']}]TOP ARTIST[/{colors['colorFive']}]      [{colors['fg']}]{artist}[/{colors['fg']}]"
 
-def main(colorscheme="catppuccin", random_color=True):
+def profile(colorscheme="catppuccin", random_color=True):
     Spotipy = create_spotify("user-read-currently-playing user-top-read user-read-recently-played user-read-private")
     
     current_user = get_current_user_info(Spotipy)
@@ -27,8 +27,8 @@ def main(colorscheme="catppuccin", random_color=True):
         now_playing = f"{now_playing['track_name']} - {now_playing['artist_name']}"
 
     recently_played = get_user_recently_played(Spotipy)
-    top_track = get_user_top_track(Spotipy)
-    top_artist = get_user_top_artist(Spotipy)
+    top_track = get_user_top_track(Spotipy)[0]
+    top_artist = get_user_top_artist(Spotipy)[0]
     
     theme = colors[colorscheme]
     if not random_color:
@@ -53,4 +53,4 @@ def main(colorscheme="catppuccin", random_color=True):
     print(new_art)
 
 if __name__ == "__main__":
-    main()
+    profile()
