@@ -1,5 +1,5 @@
-from SpotiFetch.helpers import *
-from SpotiFetch.colors import colors
+from spotifetch.helpers import *
+from spotifetch.colors import colors
 import random
 from rich import print
 

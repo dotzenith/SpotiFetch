@@ -1,6 +1,6 @@
 from typing import Optional
 import typer
-import SpotiFetch.fetch as fetch
+import spotifetch.fetch as fetch
 
 app = typer.Typer(add_completion=False)
 
