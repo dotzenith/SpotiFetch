@@ -3,6 +3,14 @@ from SpotiFetch.colors import colors
 import random
 from rich import print
 
+def format_info(colors, user, now, recent, track, artist):
+    
+    return f"[{colors['colorOne']}]USER[/{colors['colorOne']}]            [{colors['fg']}]{user}[/{colors['fg']}]", \
+           f"[{colors['colorTwo']}]NOW PLAYING[/{colors['colorTwo']}]     [{colors['fg']}]{now}[/{colors['fg']}]", \
+           f"[{colors['colorThree']}]RECENT TRACK[/{colors['colorThree']}]    [{colors['fg']}]{recent['track_name']} - {recent['artist_name']}[/{colors['fg']}]", \
+           f"[{colors['colorFour']}]TOP TRACK[/{colors['colorFour']}]       [{colors['fg']}]{track['track_name']} - {track['artist_name']}[/{colors['fg']}]", \
+           f"[{colors['colorFive']}]TOP ARTIST[/{colors['colorFive']}]      [{colors['fg']}]{artist}[/{colors['fg']}]"
+
 def main(colorscheme="catppuccin", random_color=True):
     Spotipy = create_spotify("user-read-currently-playing user-top-read user-read-recently-played user-read-private")
     
@@ -23,19 +31,20 @@ def main(colorscheme="catppuccin", random_color=True):
     top_artist = get_user_top_artist(Spotipy)
     
     theme = colors[colorscheme]
-
     if not random_color:
         logo_color = theme['colorFour']
     else:
         logo_color = random.choice(list(theme.values()))
 
+    current_user, now_playing, recently_played, top_track, top_artist = format_info(theme, current_user, now_playing, recently_played, top_track, top_artist)
+
     new_art = f"      [{logo_color}]______[/{logo_color}]" \
               f"\n   [{logo_color}];;        ;;[/{logo_color}]" \
-              f"\n [{logo_color}];;            ;;[/{logo_color}]      [{theme['colorOne']}]USER[/{theme['colorOne']}]            [{theme['fg']}]{current_user}[/{theme['fg']}]" \
-              f"\n[{logo_color}];;   _..**.._   ;;[/{logo_color}]     [{theme['colorTwo']}]NOW PLAYING[/{theme['colorTwo']}]     [{theme['fg']}]{now_playing}[/{theme['fg']}]" \
-              f"\n[{logo_color}];;   _..**.._   ;;[/{logo_color}]     [{theme['colorThree']}]RECENT TRACK[/{theme['colorThree']}]    [{theme['fg']}]{recently_played['track_name']} - {recently_played['artist_name']}[/{theme['fg']}]" \
-              f"\n[{logo_color}];;   _..**.._   ;;[/{logo_color}]     [{theme['colorFour']}]TOP TRACK[/{theme['colorFour']}]       [{theme['fg']}]{top_track['track_name']} - {top_track['artist_name']}[/{theme['fg']}]" \
-              f"\n [{logo_color}];;            ;;[/{logo_color}]      [{theme['colorFive']}]TOP ARTIST[/{theme['colorFive']}]      [{theme['fg']}]{top_artist}[/{theme['fg']}]" \
+              f"\n [{logo_color}];;            ;;[/{logo_color}]      {current_user}" \
+              f"\n[{logo_color}];;   _..**.._   ;;[/{logo_color}]     {now_playing}" \
+              f"\n[{logo_color}];;   _..**.._   ;;[/{logo_color}]     {recently_played}" \
+              f"\n[{logo_color}];;   _..**.._   ;;[/{logo_color}]     {top_track}" \
+              f"\n [{logo_color}];;            ;;[/{logo_color}]      {top_artist}" \
               f"\n   [{logo_color}];;        ;;[/{logo_color}]" \
               f"\n      [{logo_color}]------[/{logo_color}]" \
 
