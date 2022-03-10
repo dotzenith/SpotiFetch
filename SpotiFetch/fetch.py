@@ -34,7 +34,9 @@ def main(colorscheme="catppuccin", random_color=True):
     if not random_color:
         logo_color = theme['colorFour']
     else:
-        logo_color = random.choice(list(theme.values()))
+        val_list = list(theme.values())
+        val_list.pop(5)
+        logo_color = random.choice(val_list)
 
     current_user, now_playing, recently_played, top_track, top_artist = format_info(theme, current_user, now_playing, recently_played, top_track, top_artist)
 
