@@ -3,7 +3,7 @@ from spotipy.oauth2 import SpotifyOAuth
 
 def create_spotify(scope):
  
-    spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+    spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, cache_path='cache.txt'))
     return spotify
 
 def get_current_user_info(spotify_obj):
