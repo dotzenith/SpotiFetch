@@ -1,9 +1,14 @@
 import spotipy
+from os import makedirs
+from appdirs import user_cache_dir
 from spotipy.oauth2 import SpotifyOAuth
 
 def create_spotify(scope):
+
+    path = user_cache_dir("spotifetch")
+    makedirs(path, exist_ok=True)
  
-    spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, cache_path='cache.txt'))
+    spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, cache_path=f"{path}/cache.txt"))
     return spotify
 
 def get_current_user_info(spotify_obj):
