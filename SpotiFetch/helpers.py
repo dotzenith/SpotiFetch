@@ -33,13 +33,13 @@ def get_user_recently_played(spotify_obj):
             'track_name' : recently_played['items'][0]['track']['name']
     }
 
-def get_user_top_artist(spotify_obj, term = 'short_term'):
+def get_user_top_artists(spotify_obj, term = 'short_term'):
 
     top_artists = spotify_obj.current_user_top_artists(limit=5, time_range=term)
 
     return [artist['name'] for artist in top_artists['items']]
 
-def get_user_top_track(spotify_obj, term = 'short_term'):
+def get_user_top_tracks(spotify_obj, term = 'short_term'):
 
     top_tracks = spotify_obj.current_user_top_tracks(limit=5, time_range=term)
 
