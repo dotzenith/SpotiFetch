@@ -76,7 +76,7 @@ def generate_colors(url, backup_colors):
 
     colors = [f"#{color.rgb.r:02x}{color.rgb.g:02x}{color.rgb.b:02x}" for color in pallete]
 
-    if len(colors) < 6:
+    if len(colors) < 5:
         return backup_colors
 
     colors.append("#D9E0EE")
