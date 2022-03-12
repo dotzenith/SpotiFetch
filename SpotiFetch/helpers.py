@@ -1,7 +1,6 @@
 import spotipy
 from PIL import Image
 import requests
-import random
 from io import BytesIO
 import colorgram
 from os import makedirs
@@ -77,10 +76,8 @@ def generate_colors(url, backup_colors):
 
     colors = [f"#{color.rgb.r:02x}{color.rgb.g:02x}{color.rgb.b:02x}" for color in pallete]
 
-    while len(colors) < 6:
-        val_list = list(backup_colors.values())
-        val_list.pop(5)
-        colors.append(random.choice(val_list))
+    if len(colors) < 6:
+        return backup_colors
 
     colors.append("#D9E0EE")
 
