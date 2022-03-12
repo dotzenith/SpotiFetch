@@ -47,9 +47,8 @@ def fetch_top_artists(colors, spotify_obj, term='short_term'):
            f"[{colors['colorFour']}]{top_artists[3]}[/{colors['colorFour']}]", \
            f"[{colors['colorFive']}]{top_artists[4]}[/{colors['colorFive']}]" 
 
-def main(colorscheme="catppuccin", random_color=True, category='profile', term='short_term'):
+def main(colorscheme="catppuccin", random_color=True, category='profile', term='short_term', art=True):
     Spotipy = create_spotify("user-read-currently-playing user-top-read user-read-recently-played user-read-private")
-
 
     # Setting up the colors
     colorscheme = colorscheme.lower()
@@ -57,8 +56,12 @@ def main(colorscheme="catppuccin", random_color=True, category='profile', term='
         theme = colors[colorscheme]
     else:
         theme = colors['catppuccin']
-
-    theme = colors[colorscheme]
+    
+    # The only reason why this is done afterwards is to have a backup theme in case one can't be properly generated
+    if art:
+        theme = generate_colors(generate_url(category, Spotipy, term), theme)
+    
+    # Picking random colors for the outline
     if not random_color:
         logo_color = theme['colorFour']
     else:
@@ -77,9 +80,9 @@ def main(colorscheme="catppuccin", random_color=True, category='profile', term='
     new_art = f"      [{logo_color}]______[/{logo_color}]" \
               f"\n   [{logo_color}];;        ;;[/{logo_color}]" \
               f"\n [{logo_color}];;            ;;[/{logo_color}]      {field_one}" \
-              f"\n[{logo_color}];;   _..**.._   ;;[/{logo_color}]     {field_two}" \
-              f"\n[{logo_color}];;   _..**.._   ;;[/{logo_color}]     {field_three}" \
-              f"\n[{logo_color}];;   _..**.._   ;;[/{logo_color}]     {field_four}" \
+              f"\n[{logo_color}];;[/{logo_color}]   [{theme['colorTwo']}]_..**.._[{theme['colorTwo']}]   [{logo_color}];;[/{logo_color}]     {field_two}" \
+              f"\n[{logo_color}];;[/{logo_color}]   [{theme['colorThree']}]_..**.._[{theme['colorThree']}]   [{logo_color}];;[/{logo_color}]     {field_three}" \
+              f"\n[{logo_color}];;[/{logo_color}]   [{theme['colorFour']}]_..**.._[{theme['colorFour']}]   [{logo_color}];;[/{logo_color}]     {field_four}" \
               f"\n [{logo_color}];;            ;;[/{logo_color}]      {field_five}" \
               f"\n   [{logo_color}];;        ;;[/{logo_color}]" \
               f"\n      [{logo_color}]------[/{logo_color}]" \
