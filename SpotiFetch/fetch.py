@@ -76,18 +76,16 @@ def main(colorscheme="catppuccin", random_color=True, category='profile', term='
     else : 
         field_one, field_two, field_three, field_four, field_five = fetch_profile(theme, Spotipy, term)
 
+    art = f"   [{logo_color}].=*\"\'\"*=..[/{logo_color}]" \
+          f"\n [{logo_color}]./'        `:.[/{logo_color}]      {field_one}" \
+          f"\n[{logo_color}]//[/{logo_color}] [{theme['colorTwo']}]_.=====_[/{theme['colorTwo']}]  [{logo_color}] \\ [/{logo_color}]     {field_two}" \
+          f"\n[{logo_color}]\"[/{logo_color}]  [{theme['colorThree']}]__...._[/{theme['colorThree']}][{theme['colorTwo']}] `*[/{theme['colorTwo']}] [{logo_color}]\"[/{logo_color}]      {field_three}" \
+          f"\n[{logo_color}]\"[/{logo_color}]   [{theme['colorFour']}]__.._[/{theme['colorFour']}] [{theme['colorThree']}]`*[/{theme['colorThree']}]  [{logo_color}]\"[/{logo_color}]      {field_four}" \
+          f"\n[{logo_color}]\\\\ [/{logo_color}] [{theme['colorFour']}]`' ```*[/{theme['colorFour']}]  [{logo_color}]//[/{logo_color}]      {field_five}" \
+          f"\n [{logo_color}]'.         .'[/{logo_color}]" \
+          f"\n   [{logo_color}]`*.._..*'[/{logo_color}]" \
     
-    new_art = f"      [{logo_color}]______[/{logo_color}]" \
-              f"\n   [{logo_color}];;        ;;[/{logo_color}]" \
-              f"\n [{logo_color}];;            ;;[/{logo_color}]      {field_one}" \
-              f"\n[{logo_color}];;[/{logo_color}]   [{theme['colorTwo']}]_..**.._[{theme['colorTwo']}]   [{logo_color}];;[/{logo_color}]     {field_two}" \
-              f"\n[{logo_color}];;[/{logo_color}]   [{theme['colorThree']}]_..**.._[{theme['colorThree']}]   [{logo_color}];;[/{logo_color}]     {field_three}" \
-              f"\n[{logo_color}];;[/{logo_color}]   [{theme['colorFour']}]_..**.._[{theme['colorFour']}]   [{logo_color}];;[/{logo_color}]     {field_four}" \
-              f"\n [{logo_color}];;            ;;[/{logo_color}]      {field_five}" \
-              f"\n   [{logo_color}];;        ;;[/{logo_color}]" \
-              f"\n      [{logo_color}]------[/{logo_color}]" \
-
-    print(new_art)
+    print(art)
 
 if __name__ == "__main__":
     main()
