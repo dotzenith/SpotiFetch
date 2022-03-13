@@ -28,9 +28,11 @@
 
 ### ❖ Requirements
 
-Register a free app on the Spotify developer dashboard [here](https://developer.spotify.com/dashboard/)
+Register an app on the Spotify developer dashboard [here](https://developer.spotify.com/dashboard/)
 
-Set `http://127.0.0.1:9090` as the redirect URI
+Edit the app settings and set `http://127.0.0.1:9090` as the redirect URI
+
+Take a note of your Client ID and Client Secret
 
 Put the following in your `.bashrc` or `.zshrc` or the equivalent for your shell
 ```sh
