@@ -54,7 +54,7 @@ $ pip3 install spotifetch
 $ git clone https://github.com/ZenithDS/SpotiFetch.git
 $ cd SpotiFetch
 $ poetry build
-$ pip3 install ./dist/SpotiFetch-0.2.3.tar.gz
+$ pip3 install ./dist/SpotiFetch-0.2.4.tar.gz
 ```
 
 ### ❖ Usage 
@@ -138,7 +138,7 @@ SpotiFetch is the direct result of browsing too many unix subreddits and general
 ---
 
 ### ❖ What's New? 
-0.2.3 - New Spotify logo
+0.2.4 - Back to old Spotify logo
 
 ---
 
