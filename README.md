@@ -59,8 +59,7 @@ $ pip3 install ./dist/SpotiFetch-0.2.4.tar.gz
 
 ### ❖ Usage 
 
-If the instructions in the Requirements section are followed properly, SpotiFetch will ask you to log in 
-and give permissions to fetch stats the first time it's used. Login is not required after the first use. 
+If the instructions in the Requirements section are followed properly, SpotiFetch will ask you to log in and give permissions to fetch stats the first time it's used. Login is not required after the first use. 
 
 ```
 Usage: spotifetch [OPTIONS] COMMAND [ARGS]...
@@ -75,7 +74,7 @@ Commands:
 ```
 
 
-SpotiFetch can be used like any other fetch tool
+#### SpotiFetch can be used like any other fetch tool
 
 ```sh
 $ spotifetch profile      # fetches profile stats
@@ -83,8 +82,17 @@ $ spotifetch top-artists  # fetches your top five artists
 $ spotifetch top-tracks   # fetches your top five songs
 ```
 
-The top artists and tracks depends on the time-frame. By default, SpotiFetch fetches your top artists in the short term, but
-mid term, and long term are also available using the `--term`/`-t` option.
+#### SpotiFetch also supports dynamically generated colorschemes using the `--art` option
+
+```sh
+$ spotifetch profile --art      # Generates colorscheme based on the cover art of the recently played song
+$ spotifetch top-artists --art  # Generates colorscheme based on the profile image of the top artist
+$ spotifetch top-tracks --art   # Generates colorscheme based on the cover art of the top track 
+```
+
+> If SpotiFetch can't generate a colorscheme for any reason, it will fallback to the colorscheme passed in as an option, or the default colorscheme of catppuccin 
+
+#### The top artists and tracks depends on the time-frame. By default, SpotiFetch fetches your top artists in the short term, but mid term, and long term are also available using the `--term`/`-t` option.
 
 ```sh
 $ spotifetch top-artists -t short # fetches top artists in the short term
@@ -92,10 +100,10 @@ $ spotifetch top-artists -t mid   # fetches top artists in the mid term
 $ spotifetch top-artists -t long  # fetches top artists in the long term
 ```
 
-The `--term`/`-t` option is available for all three of the commands 
+> The `--term`/`-t` option is available for all three of the commands 
 
 
-SpotiFetch can also be used with a variety of different color schemes.
+#### SpotiFetch can also be used with a variety of different color schemes.
 
 > SpotiFetch uses [catppuccin](https://github.com/catppuccin) as it's default color scheme, but a different one can be specified using the `--color`/`-c` option. 
 
@@ -105,7 +113,7 @@ $ spotifetch profile         # uses catppuccin
 $ spotifetch profile -c nord # uses nord 
 ```
 
-The `--color`/`-c` option is available for all three of the commands as well
+> The `--color`/`-c` option is available for all three of the commands as well
 
 Supported color schemes as of now: 
 - [catppuccin](https://github.com/catppuccin)
@@ -120,14 +128,14 @@ Supported color schemes as of now:
 - [gogh](https://github.com/Mayccoll/Gogh)
 
 
-SpotiFetch also supports `--random`/`-r` option to print the spotify ascii art with a random color instead of the default green
+#### SpotiFetch also supports `--no-random`/`-n` option to print the spotify ascii art with a green outline instead of a using a random color from the colorscheme
 
 ```sh
-$ spotifetch profile     # prints green spotify art
-$ spotifetch profile -r  # prints spotify art with random color
+$ spotifetch profile      # prints spotify art with random color
+$ spotifetch profile -n   # prints green spotify art
 ```
 
-The `--random`/`-r` option is also available for all three of the commands
+> The `--random`/`-r` option is also available for all three of the commands
 
 ---
 
