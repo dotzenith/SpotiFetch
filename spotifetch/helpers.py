@@ -8,6 +8,14 @@ from appdirs import user_cache_dir
 from spotipy.oauth2 import SpotifyOAuth
 
 def create_spotify(scope):
+    
+    '''
+    create_spotify(scope) -> spotipy object
+
+    Creates a spotify object given a scope
+
+    :param scope - set of permissions the spotify object will have from the user account
+    '''
 
     path = user_cache_dir("spotifetch")
     makedirs(path, exist_ok=True)
@@ -16,11 +24,33 @@ def create_spotify(scope):
     return spotify
 
 def get_current_user_info(spotify_obj):
+
+    '''
+    get_current_user_info(spotify_obj) -> String
+
+    Returns the username of the authenticated user
+
+    :param spotify_obj - a spotify object created using create_spotify. 
+    
+    NOTE: spotify_obj must be created with the user-read-private scope
+    '''
     
     current_user = spotify_obj.current_user()
     return current_user['display_name'].upper()
 
 def get_currently_playing_stats(spotify_obj):
+
+    '''
+    get_currently_playing_stats(spotify_obj) -> Dict or None
+
+    Returns a dictionary containing information about the authenticated user's currently playing track if a track is currently playing
+
+    Returns None if track is currently playing
+
+    :param spotify_obj - a spotify object created using create_spotify. 
+    
+    NOTE: spotify_obj must be created with the user-read-currently-playing scope
+    '''
     
     currently_playing = spotify_obj.current_user_playing_track()
     
@@ -36,6 +66,16 @@ def get_currently_playing_stats(spotify_obj):
 
 def get_user_recently_played(spotify_obj):
     
+    '''
+    get_user_recently_played(spotify_obj) -> Dict
+
+    Returns a dictionary containing information about the authenticated user's recently played track
+
+    :param spotify_obj - a spotify object created using create_spotify. 
+    
+    NOTE: spotify_obj must be created with the user-read-recently-played scope
+    '''
+
     recently_played = spotify_obj.current_user_recently_played(limit=1)
 
     return {'artist_name' : recently_played['items'][0]['track']['artists'][0]['name'].upper(),
@@ -44,18 +84,51 @@ def get_user_recently_played(spotify_obj):
 
 def get_user_top_artists(spotify_obj, term = 'short_term'):
 
+    '''
+    get_user_top_artists(spotify_obj) -> List of Strings
+
+    Returns a list containing the authenticated user's top artists for a given time period
+
+    :param spotify_obj - a spotify object created using create_spotify.
+    :param term - the time period which the top artists should be fetched from. Can be: short_term, medium_term, or long_term
+    
+    NOTE: spotify_obj must be created with the user-top-read scope
+    '''
+
     top_artists = spotify_obj.current_user_top_artists(limit=5, time_range=term)
 
     return [artist['name'].upper() for artist in top_artists['items']]
 
 def get_user_top_tracks(spotify_obj, term = 'short_term'):
 
+    '''
+    get_user_top_tracks(spotify_obj) -> List of Dicts
+
+    Returns a list containing information about the authenticated user's top tracks for a given time period
+
+    :param spotify_obj - a spotify object created using create_spotify.
+    :param term - the time period which the top tracks should be fetched from. Can be: short_term, medium_term, or long_term
+    
+    NOTE: spotify_obj must be created with the user-top-read scope
+    '''
+    
     top_tracks = spotify_obj.current_user_top_tracks(limit=5, time_range=term)
 
     return [{'artist_name' : track['artists'][0]['name'].upper(),
              'track_name' : track['name'].upper()} for track in top_tracks['items']]
 
 def generate_url(category, spotify_obj, term):
+
+    '''
+    generate_url(category, spotify_obj, term) -> List of Strings
+
+    Returns a url for the cover art of a song or the profile picture of an artist given a category
+
+    :param category - Can be: top_tracks, top_artists, or profile.  
+    :param spotify_obj - a spotify object created using create_spotify.
+    :param term - the time period which the top artists should be fetched from. Can be: short_term, medium_term, and long_term
+    '''
+
     
     if category == 'top_tracks':
         top_track = spotify_obj.current_user_top_tracks(limit=1, time_range=term)
@@ -70,6 +143,15 @@ def generate_url(category, spotify_obj, term):
 
 def generate_colors(url, backup_colors):
 
+    '''
+    generate_colors(url, backup_colors) -> Dict 
+
+    Returns a color scheme generated from the image url
+
+    :param url - image url to generate the color scheme from
+    :backup_colors - a backup color scheme in case one can't be generated from the given url
+    '''
+    
     response = requests.get(url)
     img = Image.open(BytesIO(response.content))
     pallete = colorgram.extract(img, 5)

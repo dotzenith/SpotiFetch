@@ -1,25 +1,25 @@
-from spotifetch.helpers import *
+import spotifetch.helpers as helpers
 from spotifetch.colors import colors
 import random
 from rich import print
 
 def fetch_profile(colors, spotify_obj, term='short_term'):
     
-    user = get_current_user_info(spotify_obj)
+    user = helpers.get_current_user_info(spotify_obj)
 
     '''
     Currently Playing is handled differently than any of the others since
     it's the only function that returns a None value
     '''
-    current = get_currently_playing_stats(spotify_obj)
+    current = helpers.get_currently_playing_stats(spotify_obj)
     if current is None:
         current = "NO CURRENTLY PLAYING TRACK"
     else:
         current = f"{current['track_name']} - {current['artist_name']}"
 
-    recent = get_user_recently_played(spotify_obj)
-    track = get_user_top_tracks(spotify_obj, term)[0]
-    artist = get_user_top_artists(spotify_obj, term)[0]
+    recent = helpers.get_user_recently_played(spotify_obj)
+    track = helpers.get_user_top_tracks(spotify_obj, term)[0]
+    artist = helpers.get_user_top_artists(spotify_obj, term)[0]
     
     return f"[{colors['colorOne']}]USER[/{colors['colorOne']}]            [{colors['fg']}]{user}[/{colors['fg']}]", \
            f"[{colors['colorTwo']}]NOW PLAYING[/{colors['colorTwo']}]     [{colors['fg']}]{current}[/{colors['fg']}]", \
@@ -29,7 +29,7 @@ def fetch_profile(colors, spotify_obj, term='short_term'):
 
 def fetch_top_tracks(colors, spotify_obj, term='short_term'):
 
-    top_tracks = get_user_top_tracks(spotify_obj, term)
+    top_tracks = helpers.get_user_top_tracks(spotify_obj, term)
 
     return f"[{colors['colorOne']}]{top_tracks[0]['track_name']} - {top_tracks[0]['artist_name']}[/{colors['colorOne']}]", \
            f"[{colors['colorTwo']}]{top_tracks[1]['track_name']} - {top_tracks[1]['artist_name']}[/{colors['colorTwo']}]", \
@@ -39,7 +39,7 @@ def fetch_top_tracks(colors, spotify_obj, term='short_term'):
 
 def fetch_top_artists(colors, spotify_obj, term='short_term'):
 
-    top_artists = get_user_top_artists(spotify_obj, term)
+    top_artists = helpers.get_user_top_artists(spotify_obj, term)
 
     return f"[{colors['colorOne']}]{top_artists[0]}[/{colors['colorOne']}]", \
            f"[{colors['colorTwo']}]{top_artists[1]}[/{colors['colorTwo']}]", \
@@ -48,7 +48,7 @@ def fetch_top_artists(colors, spotify_obj, term='short_term'):
            f"[{colors['colorFive']}]{top_artists[4]}[/{colors['colorFive']}]" 
 
 def main(colorscheme="catppuccin", random_color=True, category='profile', term='short_term', art=True):
-    Spotipy = create_spotify("user-read-currently-playing user-top-read user-read-recently-played user-read-private")
+    Spotipy = helpers.create_spotify("user-read-currently-playing user-top-read user-read-recently-played user-read-private")
 
     # Setting up the colors
     colorscheme = colorscheme.lower()
@@ -59,7 +59,7 @@ def main(colorscheme="catppuccin", random_color=True, category='profile', term='
     
     # The only reason why this is done afterwards is to have a backup theme in case one can't be properly generated
     if art:
-        theme = generate_colors(generate_url(category, Spotipy, term), theme)
+        theme = helpers.generate_colors(helpers.generate_url(category, Spotipy, term), theme)
     
     # Picking random colors for the outline
     if not random_color:
