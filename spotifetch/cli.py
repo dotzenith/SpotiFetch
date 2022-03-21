@@ -7,8 +7,9 @@ app = typer.Typer(add_completion=False)
 def profile(
     term : str = typer.Option('short', "--term", "-t", help="The timeline for the top tracks/artists; short, mid, long"),         
     color: str = typer.Option('catppuccin', "--color", "-c", help="Supported color schemes: catppuccin, dracula, nord, gruvbox, onedark, tokyonight, rosepine, ayu, palenight, and gogh"), 
-    random: bool = typer.Option(False, "--no-random", "-n", help="Use a random color for the spotify ascii art"),
-    art: bool = typer.Option(False, help="Use the cover art of the recently played song as the colorscheme")        
+    random: bool = typer.Option(False, "--no-random", "-n", help="Do not use a random color for the spotify ascii art"),
+    art: bool = typer.Option(False, help="Use the cover art of the recently played song as the colorscheme"),
+    all_artists: bool = typer.Option(False, "--all-artists", "-a", help="Display all artists for the tracks")
 ):
     """
     Fetch stats for the user profile
@@ -21,14 +22,15 @@ def profile(
     else:
         term = 'short_term'
 
-    fetch.main(color, not(random), 'profile', term, art)
+    fetch.main(color, not(random), 'profile', term, art, all_artists)
 
 @app.command('top-tracks')
 def top_tracks(
     term : str = typer.Option('short', "--term", "-t", help="The timeline for the top tracks/artists; short, mid, long"),         
     color: str = typer.Option('catppuccin', "--color", "-c", help="Supported color schemes: catppuccin, dracula, nord, gruvbox, onedark, tokyonight, rosepine, ayu, palenight, and gogh"), 
-    random: bool = typer.Option(False, "--no-random", "-n", help="Use a random color for the spotify ascii art"),
-    art: bool = typer.Option(False, help="Use the cover art of the top played song as the colorscheme")        
+    random: bool = typer.Option(False, "--no-random", "-n", help="Do not use a random color for the spotify ascii art"),
+    art: bool = typer.Option(False, help="Use the cover art of the top played song as the colorscheme"),
+    all_artists: bool = typer.Option(False, "--all-artists", "-a", help="Display all artists for the tracks")
 ):
     """
     Fetch user's top tracks 
@@ -42,13 +44,13 @@ def top_tracks(
     else:
         term = 'short_term'
 
-    fetch.main(color, not(random), 'top_tracks', term, art)
+    fetch.main(color, not(random), 'top_tracks', term, art, all_artists)
 
 @app.command('top-artists')
 def top_artists(
     term : str = typer.Option('short', "--term", "-t", help="The timeline for the top tracks/artists; short, mid, long"),         
     color: str = typer.Option('catppuccin', "--color", "-c", help="Supported color schemes: catppuccin, dracula, nord, gruvbox, onedark, tokyonight, rosepine, ayu, palenight, and gogh"), 
-    random: bool = typer.Option(False, "--no-random", "-n", help="Use a random color for the spotify ascii art"),
+    random: bool = typer.Option(False, "--no-random", "-n", help="Do not use a random color for the spotify ascii art"),
     art: bool = typer.Option(False, help="Use the profile art of the top played artist as the colorscheme")        
 ):
     """

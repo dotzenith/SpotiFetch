@@ -55,7 +55,8 @@ def get_currently_playing_stats(spotify_obj):
     currently_playing = spotify_obj.current_user_playing_track()
     
     if currently_playing is not None:
-        return {'artist_name' : currently_playing['item']['artists'][0]['name'].upper(),
+
+        return {'artists' : [artist['name'].upper() for artist in currently_playing['item']['artists']],
                 'album_name' : currently_playing['item']['album']['name'].upper(),
                 'track_name' : currently_playing['item']['name'].upper(),
                 'track_progress' : currently_playing['progress_ms'],
@@ -78,7 +79,7 @@ def get_user_recently_played(spotify_obj):
 
     recently_played = spotify_obj.current_user_recently_played(limit=1)
 
-    return {'artist_name' : recently_played['items'][0]['track']['artists'][0]['name'].upper(),
+    return {'artists' : [artist['name'].upper() for artist in recently_played['items'][0]['track']['artists']],
             'track_name' : recently_played['items'][0]['track']['name'].upper()
     }
 
@@ -114,7 +115,7 @@ def get_user_top_tracks(spotify_obj, term = 'short_term'):
     
     top_tracks = spotify_obj.current_user_top_tracks(limit=5, time_range=term)
 
-    return [{'artist_name' : track['artists'][0]['name'].upper(),
+    return [{'artists' : [artist['name'].upper() for artist in track['artists']],
              'track_name' : track['name'].upper()} for track in top_tracks['items']]
 
 def generate_url(category, spotify_obj, term):
