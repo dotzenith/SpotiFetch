@@ -3,7 +3,7 @@ from spotifetch.colors import colors
 import random
 from rich import print
 
-def fetch_profile(colors, spotify_obj, term='short_term'):
+def fetch_profile(colors, spotify_obj, term='short_term', all_artists=True):
     
     user = helpers.get_current_user_info(spotify_obj)
 
@@ -15,7 +15,7 @@ def fetch_profile(colors, spotify_obj, term='short_term'):
     if current is None:
         current = "NO CURRENTLY PLAYING TRACK"
     else:
-        current = f"{current['track_name']} - {current['artist_name']}"
+        current = f"{current['track_name']} - {', '.join(current['artists']) if all_artists else current['artists'][0]}"
 
     recent = helpers.get_user_recently_played(spotify_obj)
     track = helpers.get_user_top_tracks(spotify_obj, term)[0]
@@ -23,19 +23,19 @@ def fetch_profile(colors, spotify_obj, term='short_term'):
     
     return f"[{colors['colorOne']}]USER[/{colors['colorOne']}]            [{colors['fg']}]{user}[/{colors['fg']}]", \
            f"[{colors['colorTwo']}]NOW PLAYING[/{colors['colorTwo']}]     [{colors['fg']}]{current}[/{colors['fg']}]", \
-           f"[{colors['colorThree']}]RECENT TRACK[/{colors['colorThree']}]    [{colors['fg']}]{recent['track_name']} - {recent['artist_name']}[/{colors['fg']}]", \
-           f"[{colors['colorFour']}]TOP TRACK[/{colors['colorFour']}]       [{colors['fg']}]{track['track_name']} - {track['artist_name']}[/{colors['fg']}]", \
+           f"[{colors['colorThree']}]RECENT TRACK[/{colors['colorThree']}]    [{colors['fg']}]{recent['track_name']} - {', '.join(recent['artists']) if all_artists else recent['artists'][0]}[/{colors['fg']}]", \
+           f"[{colors['colorFour']}]TOP TRACK[/{colors['colorFour']}]       [{colors['fg']}]{track['track_name']} - {', '.join(track['artists']) if all_artists else track['artists'][0]}[/{colors['fg']}]", \
            f"[{colors['colorFive']}]TOP ARTIST[/{colors['colorFive']}]      [{colors['fg']}]{artist}[/{colors['fg']}]"
 
-def fetch_top_tracks(colors, spotify_obj, term='short_term'):
+def fetch_top_tracks(colors, spotify_obj, term='short_term', all_artists=True):
 
     top_tracks = helpers.get_user_top_tracks(spotify_obj, term)
 
-    return f"[{colors['colorOne']}]{top_tracks[0]['track_name']} - {top_tracks[0]['artist_name']}[/{colors['colorOne']}]", \
-           f"[{colors['colorTwo']}]{top_tracks[1]['track_name']} - {top_tracks[1]['artist_name']}[/{colors['colorTwo']}]", \
-           f"[{colors['colorThree']}]{top_tracks[2]['track_name']} - {top_tracks[2]['artist_name']}[/{colors['colorThree']}]", \
-           f"[{colors['colorFour']}]{top_tracks[3]['track_name']} - {top_tracks[3]['artist_name']}[/{colors['colorFour']}]", \
-           f"[{colors['colorFive']}]{top_tracks[4]['track_name']} - {top_tracks[4]['artist_name']}[/{colors['colorFive']}]" 
+    return f"[{colors['colorOne']}]{top_tracks[0]['track_name']} - {', '.join(top_tracks[0]['artists']) if all_artists else top_tracks[0]['artists'][0]}[/{colors['colorOne']}]", \
+           f"[{colors['colorTwo']}]{top_tracks[1]['track_name']} - {', '.join(top_tracks[1]['artists']) if all_artists else top_tracks[1]['artists'][0]}[/{colors['colorTwo']}]", \
+           f"[{colors['colorThree']}]{top_tracks[2]['track_name']} - {', '.join(top_tracks[2]['artists']) if all_artists else top_tracks[2]['artists'][0]}[/{colors['colorThree']}]", \
+           f"[{colors['colorFour']}]{top_tracks[3]['track_name']} - {', '.join(top_tracks[3]['artists']) if all_artists else top_tracks[3]['artists'][0]}[/{colors['colorFour']}]", \
+           f"[{colors['colorFive']}]{top_tracks[4]['track_name']} - {', '.join(top_tracks[4]['artists']) if all_artists else top_tracks[4]['artists'][0]}[/{colors['colorFive']}]" 
 
 def fetch_top_artists(colors, spotify_obj, term='short_term'):
 
