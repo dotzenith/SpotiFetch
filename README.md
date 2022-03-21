@@ -20,7 +20,7 @@
 
 ### ❖ Information 
 
-  SpotiFetch is a simple fetch tool to display info about your Spotify profile 
+  SpotiFetch is a simple fetch tool to display info about your Spotify profile using the spotify API
 
   <img src="assets/spotifetch.gif" alt="spotifetch gif">
 
@@ -56,7 +56,7 @@ $ pip3 install spotifetch
 $ git clone https://github.com/ZenithDS/SpotiFetch.git
 $ cd SpotiFetch
 $ poetry build
-$ pip3 install ./dist/SpotiFetch-0.2.5.tar.gz
+$ pip3 install ./dist/SpotiFetch-0.3.5.tar.gz
 ```
 
 ### ❖ Usage 
@@ -139,6 +139,16 @@ $ spotifetch profile -n   # prints green spotify art
 
 > The `--random`/`-r` option is also available for all three of the commands
 
+
+#### Finally, SpotiFetch can also use the `--all-artists`/`-a` option to display all artists on a track instead of just displaying one
+
+```sh
+$ spotifetch profile                 # Displays only one artist for a track 
+$ spotifetch profile --all-artists   # Displays all artists for a track
+```
+
+> The `--all-artists`/`-a` option is available for the `profile` and `top-tracks` commands
+
 ---
 
 ### ❖ About SpotiFetch
@@ -148,7 +158,7 @@ SpotiFetch is the direct result of browsing too many unix subreddits and general
 ---
 
 ### ❖ What's New? 
-0.2.5 - Added Documentation and removed wildcard import
+0.3.5 - Added the ability to show all artists on a track
 
 ---
 
