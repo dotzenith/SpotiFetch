@@ -3,7 +3,7 @@ from spotifetch.colors import colors
 import random
 from rich import print
 
-def fetch_profile(colors, spotify_obj, term='short_term', all_artists=True):
+def fetch_profile(colors, spotify_obj, term='short_term', all_artists=False):
     
     user = helpers.get_current_user_info(spotify_obj)
 
@@ -27,7 +27,7 @@ def fetch_profile(colors, spotify_obj, term='short_term', all_artists=True):
            f"[{colors['colorFour']}]TOP TRACK[/{colors['colorFour']}]       [{colors['fg']}]{track['track_name']} - {', '.join(track['artists']) if all_artists else track['artists'][0]}[/{colors['fg']}]", \
            f"[{colors['colorFive']}]TOP ARTIST[/{colors['colorFive']}]      [{colors['fg']}]{artist}[/{colors['fg']}]"
 
-def fetch_top_tracks(colors, spotify_obj, term='short_term', all_artists=True):
+def fetch_top_tracks(colors, spotify_obj, term='short_term', all_artists=False):
 
     top_tracks = helpers.get_user_top_tracks(spotify_obj, term)
 
@@ -47,7 +47,7 @@ def fetch_top_artists(colors, spotify_obj, term='short_term'):
            f"[{colors['colorFour']}]{top_artists[3]}[/{colors['colorFour']}]", \
            f"[{colors['colorFive']}]{top_artists[4]}[/{colors['colorFive']}]" 
 
-def main(colorscheme="catppuccin", random_color=True, category='profile', term='short_term', art=True):
+def main(colorscheme="catppuccin", random_color=True, category='profile', term='short_term', art=True, all_artists=False):
     Spotipy = helpers.create_spotify("user-read-currently-playing user-top-read user-read-recently-played user-read-private")
 
     # Setting up the colors
@@ -70,11 +70,11 @@ def main(colorscheme="catppuccin", random_color=True, category='profile', term='
         logo_color = random.choice(val_list)
 
     if category == 'top_tracks':
-        field_one, field_two, field_three, field_four, field_five = fetch_top_tracks(theme, Spotipy, term)
+        field_one, field_two, field_three, field_four, field_five = fetch_top_tracks(theme, Spotipy, term, all_artists)
     elif category == 'top_artists':
         field_one, field_two, field_three, field_four, field_five = fetch_top_artists(theme, Spotipy, term)
     else : 
-        field_one, field_two, field_three, field_four, field_five = fetch_profile(theme, Spotipy, term)
+        field_one, field_two, field_three, field_four, field_five = fetch_profile(theme, Spotipy, term, all_artists)
 
     art = f"      [{logo_color}]______[/{logo_color}]" \
           f"\n   [{logo_color}];;        ;;[/{logo_color}]" \
