@@ -47,7 +47,7 @@ def fetch_top_artists(colors, spotify_obj, term='short_term'):
            f"[{colors['colorFour']}]{top_artists[3]}[/{colors['colorFour']}]", \
            f"[{colors['colorFive']}]{top_artists[4]}[/{colors['colorFive']}]" 
 
-def main(colorscheme="catppuccin", random_color=True, category='profile', term='short_term', art=True, all_artists=False):
+def main(colorscheme="catppuccin", random_color=True, category='profile', term='short_term', art=True, all_artists=False, pywal=True):
     Spotipy = helpers.create_spotify("user-read-currently-playing user-top-read user-read-recently-played user-read-private")
 
     # Setting up the colors
@@ -60,7 +60,9 @@ def main(colorscheme="catppuccin", random_color=True, category='profile', term='
     # The only reason why this is done afterwards is to have a backup theme in case one can't be properly generated
     if art:
         theme = helpers.generate_colors(helpers.generate_url(category, Spotipy, term), theme)
-    
+    elif pywal:
+        theme = helpers.fetch_pywal(theme)
+
     # Picking random colors for the outline
     if not random_color:
         logo_color = theme['colorFour']

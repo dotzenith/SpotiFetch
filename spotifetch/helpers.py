@@ -1,9 +1,12 @@
 import spotipy
+import json
+import random
 from PIL import Image
 import requests
 from io import BytesIO
 import colorgram
 from os import makedirs
+from os.path import expanduser, exists
 from appdirs import user_cache_dir
 from spotipy.oauth2 import SpotifyOAuth
 
@@ -172,3 +175,35 @@ def generate_colors(url, backup_colors):
             "colorFive": colors[4],
             "fg": colors[5],
     }
+
+def fetch_pywal(backup_colors):
+    
+    color_file = f"{expanduser('~')}/.cache/wal/colors.json"
+
+    if not(exists(color_file)):
+        return backup_colors
+
+    with open(color_file) as color_file:
+        colors = json.load(color_file)
+
+    fg = colors['special']['foreground']
+    bg = colors['special']['background']
+    
+    color_list = [color for color in colors['colors'].values()]
+    
+    # Removing the background color from the total selection of colors
+    if bg in color_list:
+        color_list.remove(bg)
+    
+    rand_colors = random.sample(color_list,5)
+    
+    return {
+            "colorOne": rand_colors[0],
+            "colorTwo": rand_colors[1],
+            "colorThree": rand_colors[2],
+            "colorFour": rand_colors[3],
+            "colorFive": rand_colors[4],
+            "fg": fg,
+    }
+    
+
