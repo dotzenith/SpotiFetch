@@ -145,6 +145,35 @@ def generate_url(category, spotify_obj, term):
         return recently_played['items'][0]['track']['album']['images'][1]['url']
 
 
+def hex_to_rgb(hex):
+    
+    '''
+    hex_to_rgb(hex) -> Dict 
+
+    Returns a dictionary of RGB values given a color in hex
+
+    :param hex - color value in hex
+    '''
+
+    r = hex[1:3]
+    g = hex[3:5]
+    b = hex[5:7]
+
+    return { "R" : int(r, 16), "G" : int(g, 16), "B" : int(b, 16)}
+
+def term_colorify(colors):
+
+    '''
+    term_colorify(colors) -> None
+
+    Converts the normal RGB colors of a color scheme to truecolor escape sequences
+
+    :param colors - Dictionary of color values similar the ones found in colors.py
+    '''
+
+    for color in colors.keys():
+        colors[color] = f"\033[38;2;{colors[color]['R']};{colors[color]['G']};{colors[color]['B']}m"
+
 def generate_colors(url, backup_colors):
 
     '''
@@ -168,12 +197,12 @@ def generate_colors(url, backup_colors):
     colors.append("#D9E0EE")
 
     return {
-            "colorOne": colors[0],
-            "colorTwo": colors[1],
-            "colorThree": colors[2],
-            "colorFour": colors[3],
-            "colorFive": colors[4],
-            "fg": colors[5],
+            "colorOne": hex_to_rgb(colors[0]),
+            "colorTwo": hex_to_rgb(colors[1]),
+            "colorThree": hex_to_rgb(colors[2]),
+            "colorFour": hex_to_rgb(colors[3]),
+            "colorFive": hex_to_rgb(colors[4]),
+            "fg": hex_to_rgb(colors[5]),
     }
 
 def fetch_pywal(backup_colors):
@@ -206,10 +235,10 @@ def fetch_pywal(backup_colors):
     rand_colors = random.sample(color_list,5)
     
     return {
-            "colorOne": rand_colors[0],
-            "colorTwo": rand_colors[1],
-            "colorThree": rand_colors[2],
-            "colorFour": rand_colors[3],
-            "colorFive": rand_colors[4],
-            "fg": fg,
+            "colorOne": hex_to_rgb(rand_colors[0]),
+            "colorTwo": hex_to_rgb(rand_colors[1]),
+            "colorThree": hex_to_rgb(rand_colors[2]),
+            "colorFour": hex_to_rgb(rand_colors[3]),
+            "colorFive": hex_to_rgb(rand_colors[4]),
+            "fg": hex_to_rgb(fg),
     }

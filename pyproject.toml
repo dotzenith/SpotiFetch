@@ -9,7 +9,6 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.9"
 spotipy = "^2.19.0"
-rich = "^11.2.0"
 typer = "^0.4.0"
 appdirs = "^1.4.4"
 "colorgram.py" = "^1.2.0"
