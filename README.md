@@ -4,13 +4,13 @@
 <div align="center">
    <p></p>
    
-   <img src="https://img.shields.io/github/stars/zenithds/SpotiFetch?color=F8BD96&labelColor=302D41&style=for-the-badge">   
+   <img src="https://img.shields.io/github/stars/dotzenith/SpotiFetch?color=F8BD96&labelColor=302D41&style=for-the-badge">   
 
-   <img src="https://img.shields.io/github/forks/zenithds/SpotiFetch?color=DDB6F2&labelColor=302D41&style=for-the-badge">   
+   <img src="https://img.shields.io/github/forks/dotzenith/SpotiFetch?color=DDB6F2&labelColor=302D41&style=for-the-badge">   
 
-   <img src="https://img.shields.io/github/repo-size/zenithds/SpotiFetch?color=ABE9B3&labelColor=302D41&style=for-the-badge">
+   <img src="https://img.shields.io/github/repo-size/dotzenith/SpotiFetch?color=ABE9B3&labelColor=302D41&style=for-the-badge">
    
-   <img src="https://badges.pufler.dev/visits/zenithds/SpotiFetch?style=for-the-badge&color=96CDFB&logoColor=white&labelColor=302D41"/>
+   <img src="https://badges.pufler.dev/visits/dotzenith/SpotiFetch?style=for-the-badge&color=96CDFB&logoColor=white&labelColor=302D41"/>
    <br>
 </div>
 
