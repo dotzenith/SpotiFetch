@@ -22,7 +22,7 @@
 
   SpotiFetch is a simple fetch tool to display info about your Spotify profile using the spotify API
 
-  <img src="assets/spotifetch.gif" alt="spotifetch gif">
+  <img src="https://github.com/dotzenith/dotzenith/blob/main/assets/SpotiFetch/spotifetch.gif" alt="spotifetch gif">
 
 ---
 
