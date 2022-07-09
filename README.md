@@ -10,7 +10,7 @@
 
    <img src="https://img.shields.io/github/repo-size/dotzenith/SpotiFetch?color=ABE9B3&labelColor=302D41&style=for-the-badge">
    
-   <img src="https://badges.pufler.dev/visits/dotzenith/SpotiFetch?style=for-the-badge&color=96CDFB&logoColor=white&labelColor=302D41"/>
+   <img src="https://img.shields.io/github/commit-activity/y/dotzenith/SpotiFetch?color=96CDFB&labelColor=302D41&style=for-the-badge&label=COMMITS"/>
    <br>
 </div>
 
