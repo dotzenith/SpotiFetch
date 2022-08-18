@@ -56,7 +56,7 @@ $ pip3 install spotifetch
 $ git clone https://github.com/ZenithDS/SpotiFetch.git
 $ cd SpotiFetch
 $ poetry build
-$ pip3 install ./dist/SpotiFetch-0.4.0.tar.gz
+$ pip3 install ./dist/SpotiFetch-0.4.1.tar.gz
 ```
 
 
@@ -171,7 +171,7 @@ SpotiFetch is the direct result of browsing too many unix subreddits and general
 ---
 
 ### ❖ What's New? 
-0.4.0 - Removed rich library
+0.4.1 - Added type hints and switched to kolorz
 
 ---
 
