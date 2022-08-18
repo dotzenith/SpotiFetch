@@ -6,13 +6,14 @@ import random
 
 def fetch_profile(colors: Any, spotify_obj: spotipy.client.Spotify, 
                   term: str = 'short_term', all_artists: bool = False) -> tuple[str, str, str, str, str]:
-    
+    """
+    Fetches data for the signed-in user's profile and formats it with colors
+    """
+
     user = helpers.get_current_user_info(spotify_obj)
 
-    '''
-    Currently Playing is handled differently than any of the others since
-    it's the only function that returns a None value
-    '''
+    # Currently Playing is handled differently than any of the others since
+    # it's the only function that returns a None value
     current = helpers.get_currently_playing_stats(spotify_obj)
     if current is None:
         current = "NO CURRENTLY PLAYING TRACK"
@@ -29,8 +30,12 @@ def fetch_profile(colors: Any, spotify_obj: spotipy.client.Spotify,
            f"{colors.color4}TOP TRACK{colors.end}       {colors.white}{track['track_name']} - {', '.join(track['artists']) if all_artists else track['artists'][0]}{colors.end}", \
            f"{colors.color5}TOP ARTIST{colors.end}      {colors.white}{artist}{colors.end}"
 
-def fetch_top_tracks(colors, spotify_obj, term='short_term', all_artists=False):
-
+def fetch_top_tracks(colors: Any, spotify_obj: spotipy.client.Spotify, 
+                     term: str = 'short_term', all_artists: bool = False) -> tuple[str, str, str, str, str]:
+    """
+    Fetches top tracks for the signed-in user and formats it with colors
+    """
+    
     top_tracks = helpers.get_user_top_tracks(spotify_obj, term)
 
     return f"{colors.color1}{top_tracks[0]['track_name']} - {', '.join(top_tracks[0]['artists']) if all_artists else top_tracks[0]['artists'][0]}{colors.end}", \
@@ -39,7 +44,10 @@ def fetch_top_tracks(colors, spotify_obj, term='short_term', all_artists=False):
            f"{colors.color4}{top_tracks[3]['track_name']} - {', '.join(top_tracks[3]['artists']) if all_artists else top_tracks[3]['artists'][0]}{colors.end}", \
            f"{colors.color5}{top_tracks[4]['track_name']} - {', '.join(top_tracks[4]['artists']) if all_artists else top_tracks[4]['artists'][0]}{colors.end}" 
 
-def fetch_top_artists(colors, spotify_obj, term='short_term'):
+def fetch_top_artists(colors: Any, spotify_obj: spotipy.client.Spotify, term: str = 'short_term') -> tuple[str, str, str, str, str]:
+    """
+    Fetches top artists for the signed-in user and formats it with colors
+    """
 
     top_artists = helpers.get_user_top_artists(spotify_obj, term)
 
