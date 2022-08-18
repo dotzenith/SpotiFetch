@@ -1,3 +1,4 @@
+from typing import Any, Optional
 import spotipy
 import json
 import random
@@ -9,9 +10,9 @@ from os import makedirs
 from os.path import expanduser, exists
 from appdirs import user_cache_dir
 from spotipy.oauth2 import SpotifyOAuth
+from kolorz.kolor import make_kolorz
 
-def create_spotify(scope):
-    
+def create_spotify(scope: str) -> spotipy.client.Spotify:
     '''
     create_spotify(scope) -> spotipy object
 
@@ -26,26 +27,20 @@ def create_spotify(scope):
     spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, cache_path=f"{path}/cache.txt"))
     return spotify
 
-def get_current_user_info(spotify_obj):
-
+def get_current_user_info(spotify_obj: spotipy.client.Spotify) -> str:
     '''
-    get_current_user_info(spotify_obj) -> String
-
     Returns the username of the authenticated user
 
     :param spotify_obj - a spotify object created using create_spotify. 
     
     NOTE: spotify_obj must be created with the user-read-private scope
     '''
-    
+
     current_user = spotify_obj.current_user()
     return current_user['display_name'].upper()
 
-def get_currently_playing_stats(spotify_obj):
-
+def get_currently_playing_stats(spotify_obj: spotipy.client.Spotify) -> Optional[dict[str, Any]]:
     '''
-    get_currently_playing_stats(spotify_obj) -> Dict or None
-
     Returns a dictionary containing information about the authenticated user's currently playing track if a track is currently playing
 
     Returns None if track is currently playing
@@ -68,11 +63,8 @@ def get_currently_playing_stats(spotify_obj):
 
     return None
 
-def get_user_recently_played(spotify_obj):
-    
+def get_user_recently_played(spotify_obj: spotipy.client.Spotify) -> dict[str, Any]:
     '''
-    get_user_recently_played(spotify_obj) -> Dict
-
     Returns a dictionary containing information about the authenticated user's recently played track
 
     :param spotify_obj - a spotify object created using create_spotify. 
@@ -86,11 +78,8 @@ def get_user_recently_played(spotify_obj):
             'track_name' : recently_played['items'][0]['track']['name'].upper()
     }
 
-def get_user_top_artists(spotify_obj, term = 'short_term'):
-
+def get_user_top_artists(spotify_obj: spotipy.client.Spotify, term: str = 'short_term') -> list[str]:
     '''
-    get_user_top_artists(spotify_obj) -> List of Strings
-
     Returns a list containing the authenticated user's top artists for a given time period
 
     :param spotify_obj - a spotify object created using create_spotify.
@@ -103,11 +92,8 @@ def get_user_top_artists(spotify_obj, term = 'short_term'):
 
     return [artist['name'].upper() for artist in top_artists['items']]
 
-def get_user_top_tracks(spotify_obj, term = 'short_term'):
-
+def get_user_top_tracks(spotify_obj: spotipy.client.Spotify, term: str = 'short_term') -> list[dict[str, Any]]:
     '''
-    get_user_top_tracks(spotify_obj) -> List of Dicts
-
     Returns a list containing information about the authenticated user's top tracks for a given time period
 
     :param spotify_obj - a spotify object created using create_spotify.
@@ -121,11 +107,8 @@ def get_user_top_tracks(spotify_obj, term = 'short_term'):
     return [{'artists' : [artist['name'].upper() for artist in track['artists']],
              'track_name' : track['name'].upper()} for track in top_tracks['items']]
 
-def generate_url(category, spotify_obj, term):
-
+def generate_image_url(category: str, spotify_obj: spotipy.client.Spotify, term: str) -> str:
     '''
-    generate_url(category, spotify_obj, term) -> List of Strings
-
     Returns a url for the cover art of a song or the profile picture of an artist given a category
 
     :param category - Can be: top_tracks, top_artists, or profile.  
@@ -145,11 +128,8 @@ def generate_url(category, spotify_obj, term):
         return recently_played['items'][0]['track']['album']['images'][1]['url']
 
 
-def hex_to_rgb(hex):
-    
+def hex_to_rgb(hex: str) -> tuple[int, int, int]:
     '''
-    hex_to_rgb(hex) -> Dict 
-
     Returns a dictionary of RGB values given a color in hex
 
     :param hex - color value in hex
@@ -159,27 +139,13 @@ def hex_to_rgb(hex):
     g = hex[3:5]
     b = hex[5:7]
 
-    return { "R" : int(r, 16), "G" : int(g, 16), "B" : int(b, 16)}
+    return (int(r, 16), int(g, 16), int(b, 16))
 
-def term_colorify(colors):
-
+def generate_colors(url: str, backup_colors: dict[str, str]) -> Any:
     '''
-    term_colorify(colors) -> None
-
-    Converts the normal RGB colors of a color scheme to truecolor escape sequences
-
-    :param colors - Dictionary of color values similar the ones found in colors.py
-    '''
-
-    for color in colors.keys():
-        colors[color] = f"\033[38;2;{colors[color]['R']};{colors[color]['G']};{colors[color]['B']}m"
-
-def generate_colors(url, backup_colors):
-
-    '''
-    generate_colors(url, backup_colors) -> Dict 
-
     Returns a color scheme generated from the image url
+
+    The return type is set to Any since it returns a pseudo dict
 
     :param url - image url to generate the color scheme from
     :backup_colors - a backup color scheme in case one can't be generated from the given url
@@ -189,28 +155,29 @@ def generate_colors(url, backup_colors):
     img = Image.open(BytesIO(response.content))
     pallete = colorgram.extract(img, 5)
 
-    colors = [f"#{color.rgb.r:02x}{color.rgb.g:02x}{color.rgb.b:02x}" for color in pallete]
+    colors = [(color.rgb.r, color.rgb.g, color.rgb.b) for color in pallete]
 
     if len(colors) < 5:
         return backup_colors
 
-    colors.append("#D9E0EE")
+    colors.append((217, 224, 238))
 
-    return {
-            "colorOne": hex_to_rgb(colors[0]),
-            "colorTwo": hex_to_rgb(colors[1]),
-            "colorThree": hex_to_rgb(colors[2]),
-            "colorFour": hex_to_rgb(colors[3]),
-            "colorFive": hex_to_rgb(colors[4]),
-            "fg": hex_to_rgb(colors[5]),
+    generated_colors = {
+                "color1": colors[1],
+                "color2": colors[0],
+                "color3": colors[2],
+                "color4": colors[3],
+                "color5": colors[4],
+                "white": colors[5],
     }
 
-def fetch_pywal(backup_colors):
+    return make_kolorz(custom=generated_colors)
 
+def fetch_pywal(backup_colors: dict[str, str]) -> Any:
     '''
-    fetch_pywal(backup_colors) -> Dict 
-
     Returns a color scheme generated by pywal
+
+    The return type is set to any since it returns a pseudo dict
 
     :backup_colors - a backup color scheme in case colors.json does not exist
     '''
@@ -234,11 +201,14 @@ def fetch_pywal(backup_colors):
     
     rand_colors = random.sample(color_list,5)
     
-    return {
-            "colorOne": hex_to_rgb(rand_colors[0]),
-            "colorTwo": hex_to_rgb(rand_colors[1]),
-            "colorThree": hex_to_rgb(rand_colors[2]),
-            "colorFour": hex_to_rgb(rand_colors[3]),
-            "colorFive": hex_to_rgb(rand_colors[4]),
-            "fg": hex_to_rgb(fg),
+    generated_colors = {
+                "color1": hex_to_rgb(rand_colors[0]),
+                "color2": hex_to_rgb(rand_colors[1]),
+                "color3": hex_to_rgb(rand_colors[2]),
+                "color4": hex_to_rgb(rand_colors[3]),
+                "color5": hex_to_rgb(rand_colors[4]),
+                "white": hex_to_rgb(fg),
     }
+
+    return make_kolorz(custom=generated_colors)
+

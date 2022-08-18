@@ -130,13 +130,12 @@ $ spotifetch profile -c nord # uses nord
 > The `--color`/`-c` option is available for all three of the commands
 
 Supported color schemes as of now: 
-- [catppuccin](https://github.com/catppuccin)
+- [catppuccin](https://github.com/catppuccin) - latte, frappe, macchiato, mocha
 - [nord](https://github.com/arcticicestudio/nord)
 - [dracula](https://github.com/dracula/dracula-theme)
 - [gruvbox](https://github.com/morhetz/gruvbox)
 - [onedark](https://github.com/joshdick/onedark.vim)
 - [tokyonight](https://github.com/folke/tokyonight.nvim)
-- [rose pine](https://rosepinetheme.com/)
 - [ayu](https://github.com/ayu-theme)
 - [palenight](https://github.com/drewtempelmeyer/palenight.vim)
 - [gogh](https://github.com/Mayccoll/Gogh)
