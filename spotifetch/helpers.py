@@ -14,8 +14,6 @@ from kolorz.kolor import make_kolorz
 
 def create_spotify(scope: str) -> spotipy.client.Spotify:
     '''
-    create_spotify(scope) -> spotipy object
-
     Creates a spotify object given a scope
 
     :param scope - set of permissions the spotify object will have from the user account
