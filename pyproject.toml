@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "SpotiFetch"
-version = "0.4.2"
+version = "0.4.3"
 description = "A fetch tool for Spotify"
-authors = ["ZenithDS"]
+authors = ["dotzenith"]
 license = "MIT"
 readme = "README.md"
 
@@ -18,7 +18,9 @@ kolorz = "^0.2.1"
 [tool.poetry.scripts]
 spotifetch = "spotifetch.cli:main"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
+black = "^22.10.0"
+isort = "^5.10.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
