@@ -53,7 +53,7 @@ $ pip3 install spotifetch
 > Install from source
 - First, install [poetry](https://python-poetry.org/)
 ```sh
-$ git clone https://github.com/ZenithDS/SpotiFetch.git
+$ git clone https://github.com/dotzenith/SpotiFetch.git
 $ cd SpotiFetch
 $ poetry build
 $ pip3 install ./dist/SpotiFetch-0.4.3.tar.gz
