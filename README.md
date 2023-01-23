@@ -56,7 +56,7 @@ $ pip3 install spotifetch
 $ git clone https://github.com/dotzenith/SpotiFetch.git
 $ cd SpotiFetch
 $ poetry build
-$ pip3 install ./dist/SpotiFetch-0.4.3.tar.gz
+$ pip3 install ./dist/SpotiFetch-0.4.4.tar.gz
 ```
 
 
