@@ -171,7 +171,7 @@ SpotiFetch is the direct result of browsing too many unix subreddits and general
 ---
 
 ### ❖ What's New? 
-0.4.3 - Formatting and Author changes 
+0.4.4 - Dependency updates
 
 ---
 
