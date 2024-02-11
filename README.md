@@ -18,6 +18,12 @@
 
 ---
 
+## ❖ IMPORTANT!
+
+SpotiFetch has been superseded by [SpotiFetch.rs](https://github.com/dotzenith/SpotiFetch.rs)!
+
+SpotiFetch.rs is a rewrite in rust with almost of the same features as this version. It will also be the only version receiving updates going forward.
+
 ### ❖ Information 
 
   SpotiFetch is a simple fetch tool to display info about your Spotify profile using the spotify API
